@@ -23,15 +23,14 @@
                             @foreach($tasks as $task)
                             <tbody>
                                 <tr>
-        
+
                                     <td> 
-{{$task->content}}
-                                    
+                                        {{$task->content}} 
                                     </td>
-                                    @if($task->isComplete)
-                                        <td><a href="http://" class="btn btn-default"><span class="fa fa-check">&nbsp Completed</span></a></td>
+                                    @if($task->iscomplete)
+                                        <td><a href="edit/{{$task->id}}" class="btn btn-default"><span class="fa fa-check">&nbsp Completed</span></a></td>
                                     @else
-                                        <td><a href="http://" class="btn btn-warning "><span class="fa fa-warning">&nbsp Incomplete</span></a></td>
+                                        <td><a href="edit/{{$task->id}}" class="btn btn-warning "><span class="fa fa-warning">&nbsp Incomplete</span></a></td>
                                     @endif
                                     <td> <a href="delete/{{$task->id}}"><button type="button" class="btn btn-danger"><span class="fa fa-trash">&nbsp</span></button> </a>
                                 </tr>

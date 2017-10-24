@@ -6,21 +6,27 @@ use Illuminate\Http\Request;
 Use App\Task;
 class TaskController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');      
+    }
+    
     public function showAll()
     {
-        $tasks = Task::latest()->get();
+        $tasks = Task::where('user_id',auth()->id())->latest()->get();
         return view('home', compact('tasks'));
     }
 
     public function showCompleted()
     {
-        $tasks = Task::latest()->completed();
+        $tasks = Task::where('user_id',auth()->id())->latest()->completed();
         return view('home', compact('tasks'));
     }
 
     public function showIncomplete()
     {
-        $tasks = Task::latest()->incomplete();
+        $tasks = Task::where('user_id',auth()->id())->latest()->incomplete();
         return view('home', compact('tasks'));
     }
 
@@ -31,9 +37,21 @@ class TaskController extends Controller
         ]);
         Task::create([
             'content' => request('task'),
-            'user_id' => 1 
+            'user_id' => auth()->id()  
         ]);
 
+        return back();
+    }
+
+    public function edit($id)
+    {
+        $task = Task::findorfail($id);
+        
+        if($task->iscomplete)
+            $task->iscomplete = false;
+        else
+            $task->iscomplete = true; 
+        $task->save();
         return back();
     }
 

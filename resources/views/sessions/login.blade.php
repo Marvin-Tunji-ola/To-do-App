@@ -8,14 +8,14 @@
             <div class="panel-heading">Login</div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/login">
+                <form class="form-horizontal" method="POST" action="login">
                     {{ csrf_field() }}
 
                     <div class="form-group">
                         <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                            <input id="email" type="email" class="form-control" name="email" required autofocus>
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
@@ -30,7 +30,11 @@
 
                         <div class="col-md-6">
                             <input id="password" type="password" class="form-control" name="password" required>
-
+                            @if ($errors->has('password'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
                     </div>
 
                     <div class="form-group">
@@ -49,11 +53,18 @@
                                 Login
                             </button>
 
-                            <a class="btn btn-link" href="{{}}">
+                            <a class="btn btn-link" href="">
                                 Forgot Your Password?
                             </a>
+                                @if ($errors->has('message'))
+                                    <span class="help-block ">
+                                        <strong>{{ $errors->first('message') }}</strong>
+                                    </span>
+                                @endif
                         </div>
+                        
                     </div>
+                    
                 </form>
             </div>
         </div>

@@ -11,11 +11,17 @@
 |
 */
 
-Route::get('/', 'TaskController@showAll');
-Route::get('/completed', 'TaskController@showCompleted');
-Route::get('/incomplete', 'TaskController@showIncomplete');
-Route::post('/new', 'TaskController@create');
-Route::get('/delete/{id}', 'TaskController@delete');
-Route::get('/test','TestController@index');
-Route::get('/register', 'RegistrationController@index');
-Route::get('/login', 'SessionController@index');
+Route::get('/', 'TaskController@showAll')->name('home');
+Route::get('completed', 'TaskController@showCompleted');
+Route::get('incomplete', 'TaskController@showIncomplete');
+Route::post('new', 'TaskController@create');
+Route::get('delete/{id}', 'TaskController@delete');
+Route::get('edit/{id}', 'TaskController@edit');
+Route::get('test','TestController@index');
+
+Route::get('register', 'RegistrationController@index');
+Route::post('register', 'RegistrationController@create');
+
+Route::get('login', 'SessionController@index')->name('login');
+Route::post('login', 'SessionController@create')->name('register');
+Route::get('logout', 'SessionController@destroy');
