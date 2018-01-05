@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::redirect('home', '/', 301);
 Route::get('/', 'TaskController@showAll')->name('home');
 Route::get('completed', 'TaskController@showCompleted');
 Route::get('incomplete', 'TaskController@showIncomplete');
@@ -20,8 +20,8 @@ Route::get('edit/{id}', 'TaskController@edit');
 Route::get('test','TestController@index');
 
 Route::get('register', 'RegistrationController@index');
-Route::post('register', 'RegistrationController@create');
+Route::post('register', 'RegistrationController@create')->name('register');
 
 Route::get('login', 'SessionController@index')->name('login');
-Route::post('login', 'SessionController@create')->name('register');
+Route::post('login', 'SessionController@create');
 Route::get('logout', 'SessionController@destroy');

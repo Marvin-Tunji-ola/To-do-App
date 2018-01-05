@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Mail\Welcome;
 
 class RegistrationController extends Controller
 {
@@ -23,8 +24,9 @@ class RegistrationController extends Controller
     {
         $this->validate(request(),[
             'name' => 'required|min:2',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:user',
             'password' => 'required|confirmed|min:6'
+    
 
         ]);
         
@@ -42,8 +44,14 @@ class RegistrationController extends Controller
                 'password' => Hash::make(request('password'))   
                 ]);
 
+            
             auth()->login($user);
 
+            \Mail::to($user)->send(new Welcome($user));
+            
+           
+            
+            session()->flash('message','Wellcome to '.config('app.name').', Check You mail inbox to Confrm your Email');
             return redirect()->home();
         }
     }

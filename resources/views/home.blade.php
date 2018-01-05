@@ -2,55 +2,75 @@
 
 @section('content')
 <!-- Show Tasks -->
+
 <div class="container">
     <div class="row">
         <div class="panel panel-info">
-                <div class="panel-heading">
-                        <h2 class="panel-title">Your Tasks</h2>
-                </div>
-                <div class="panel-body">
-                        
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Task</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Your Tasks 
 
-                        @if(!$tasks->isempty() )    
-                            @foreach($tasks as $task)
-                            <tbody>
-                                <tr>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn  btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select Tasks<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
 
-                                    <td> 
-                                        {{$task->content}} 
-                                    </td>
-                                    @if($task->iscomplete)
-                                        <td><a href="edit/{{$task->id}}" class="btn btn-default"><span class="fa fa-check">&nbsp Completed</span></a></td>
-                                    @else
-                                        <td><a href="edit/{{$task->id}}" class="btn btn-warning "><span class="fa fa-warning">&nbsp Incomplete</span></a></td>
-                                    @endif
-                                    <td> <a href="delete/{{$task->id}}"><button type="button" class="btn btn-danger"><span class="fa fa-trash">&nbsp</span></button> </a>
-                                </tr>
-                            </tbody>
-                            @endforeach
+                            <li><a href="/">All Task</a></li>
+                            <li><a href="/completed">Completed</a></li>
+                            <li><a href="/incomplete">Incompleted</a></li>
+                        </ul>
+                    </div>
+                </div>        
+            </div>
+            <div class="panel-body">
+
+
+                @if($flash = session('message'))
+                <div class="alert alert-info">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>{{$flash}}</strong>
+                </div>  
+                @endif
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    @if(!$tasks->isempty() )    
+                    @foreach($tasks as $task)
+                    <tbody>
+                        <tr>
+
+                            <td> 
+                                {{$task->content}} 
+                            </td>
+                            <td><a href="/edit/{{$task->id}}"><i class="btn {{$task->iscomplete ? 'btn-default' : 'btn-warning'}} fa fa-check">{{$task->iscomplete ? 'Completed' : 'Incomplete'}}</i></a>
+                            </td>
+                            <td> <a href="delete/{{$task->id}}"><button type="button" class="btn btn-danger"><span class="fa fa-trash">&nbsp</span></button> </a>
+                            </tr>
+                        </tbody>
+                        @endforeach
                         @else
                         <tbody>
                             <tr class="center-block">
-                                    
-                                    <div class=" alert alert-danger">
-                                        <strong>Empty!</strong> 0 Task Available ...
-                                    </div>
-                
+
+                                <div class=" alert alert-danger">
+                                    <strong>Empty!</strong> 0 Task Available ...
+                                </div>
+
                             </tr>
                         </tbody>
                         @endif
-                        </table>
-                     
-                       
-                        
+                    </table>
+
+
+
                 </div>
             </div>
         </div>
@@ -63,22 +83,22 @@
     <div class="row">
         <div class="panel panel-info">
             <div class="panel-heading">
-                    <h3 class="panel-title">New Task</h3>
+                <h3 class="panel-title">New Task</h3>
             </div>
             <div class="panel-body">
-            
-            <form action="/new" method="POST" class="form-horizontal" role="form">
+
+                <form action="/new" method="POST" class="form-horizontal" role="form">
                     {{csrf_field()}}
                     
                     <div class="form-group">
-                            <textarea placeholder="Enter New Task" name="task" class="form-control" id="new" cols="30" rows="5" ></textarea>
+                        <textarea placeholder="Enter New Task" name="task" class="form-control" id="new" cols="30" rows="5" ></textarea>
                     </div>
 
                     <div class="form-group">
-                            <button type="submit" class="btn btn-primary form-control">save</button>
+                        <button type="submit" class="btn btn-primary form-control">save</button>
                     </div>
 
-            </form>
+                </form>
             </div>
         </div>
     </div>

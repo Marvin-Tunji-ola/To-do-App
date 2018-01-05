@@ -34,12 +34,13 @@ class TaskController extends Controller
     {
         $this->validate(request(),[
             'task' => 'required|min:2'
-        ]);
+        ]);     
         Task::create([
             'content' => request('task'),
             'user_id' => auth()->id()  
         ]);
-
+        
+        session()->flash('message', 'Task Sucessfully Added');
         return back();
     }
 

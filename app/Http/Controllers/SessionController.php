@@ -26,14 +26,14 @@ class SessionController extends Controller
         ]);
 
         
-        if(! Auth::attempt(request(['email','password']))){
-
+        if(! Auth::attempt(request(['email','password']),request('remember'))){
+            
             return back()->withErrors([
                 'message' => 'Please Check Credentials!'
             ]);
             
         }else{
-
+            
             return redirect()->home();
 
         }
