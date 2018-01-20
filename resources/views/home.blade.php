@@ -58,7 +58,7 @@
                         @endforeach
                         @else
                         <tbody>
-                            <tr class="center-block">
+                            <tr class="">
 
                                 <div class=" alert alert-danger">
                                     <strong>Empty!</strong> 0 Task Available ...
